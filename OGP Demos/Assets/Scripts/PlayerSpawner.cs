@@ -5,7 +5,7 @@ using Unity.Netcode;
 
 // Example script for manually spawning the player when a client connects to the online session
 // Remember to remove the player prefab from the Network Manager component in the scene if you use this script
-public class PlayerSpawner : MonoBehaviour
+public class PlayerSpawner : NetworkBehaviour
 {
     [SerializeField] GameObject playerPrefab; // The prefab that we spawn to represent the player
 
@@ -44,14 +44,14 @@ public class PlayerSpawner : MonoBehaviour
     }
 
     // Spawns a player object for the client whose ID is 
-    private void OnClientConnectedCallback(ulong clientID)
+    private void OnClientConnectedCallback(ulong clientId)
     {
         // Only the server is allowed to spawn objects into the online session
-        if (NetworkManager.Singleton.IsServer)
+        if (NetworkManager.Singleton.IsServer /*&& clientId == NetworkManager.Singleton.LocalClientId && sceneName == "GameScene"*/)
         {
             GameObject go = Instantiate(playerPrefab); // Instantiate the player prefab locally on the server
             NetworkObject no = go.GetComponent<NetworkObject>(); // Get a reference to the instantiated objects NetworkObject component 
-            no.SpawnAsPlayerObject(clientID); // Spawn the object into the online session as the player object of the client that just connected
+            no.SpawnAsPlayerObject(clientId); // Spawn the object into the online session as the player object of the client that just connected
         }
     }
 }

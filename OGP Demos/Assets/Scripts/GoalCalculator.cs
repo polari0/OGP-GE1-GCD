@@ -5,12 +5,9 @@ using Unity.Netcode;
 public class GoalCalculator : NetworkBehaviour
 {
     [SerializeField]
-    ObjectSpawner objectSpawner_Script;
-    [SerializeField]
     GameObject ball;
 
     private NetworkVariable<int> LeftGoal = new NetworkVariable<int>(0);
-
     private NetworkVariable<int> RightGoal = new NetworkVariable<int>(0);
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -21,14 +18,15 @@ public class GoalCalculator : NetworkBehaviour
             {
                 GoalLeft();
                 Debug.Log(LeftGoal);
-                objectSpawner_Script.ResetBallPosition();
-
+                ResetBallPosition();
+                DestroyGameObject();
             }
             else if (collision.tag == "RightGoal")
             {
                 GoalRight();
                 Debug.Log(RightGoal);
-                objectSpawner_Script.ResetBallPosition();
+                ResetBallPosition();
+                DestroyGameObject();
 
             }
         }
@@ -52,5 +50,16 @@ public class GoalCalculator : NetworkBehaviour
     private void DestroyGameObject()
     {
         Destroy(ball);
+    }
+
+    internal void ResetBallPosition()
+    {
+        if (IsServer)
+        {
+            GameObject go = Instantiate(ball, Vector3.zero, Quaternion.identity);
+            go.transform.localScale = new Vector3(10, 10, 10);
+            NetworkObject no = go.GetComponent<NetworkObject>();
+            no.Spawn();
+        }
     }
 }
