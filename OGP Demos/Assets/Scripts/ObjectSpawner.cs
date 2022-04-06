@@ -8,21 +8,31 @@ public class ObjectSpawner : NetworkBehaviour
     [SerializeField]
     GameObject spawnnablObject;
 
-    public override void OnNetworkSpawn()
+    private void Start()
     {
         if (IsServer)
         {
-            SpawnObject();
-        }
-    }
-
-    private void SpawnObject()
-    {
-        if (IsServer)
-        {
-            GameObject go = Instantiate(spawnnablObject);
+            GameObject go = Instantiate(spawnnablObject, Vector3.zero, Quaternion.identity);
             NetworkObject no = go.GetComponent<NetworkObject>();
             no.Spawn();
         }
     }
+
+    //public override void OnNetworkSpawn()
+    //{
+    //    if (IsServer)
+    //    {
+    //        SpawnObject();
+    //    }
+    //}
+
+    //private void SpawnObject()
+    //{
+    //    if (IsServer)
+    //    {
+    //        GameObject go = Instantiate(spawnnablObject);
+    //        NetworkObject no = go.GetComponent<NetworkObject>();
+    //        no.Spawn();
+    //    }
+    //}
 }
