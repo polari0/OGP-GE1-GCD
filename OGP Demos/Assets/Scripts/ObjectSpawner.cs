@@ -18,6 +18,16 @@ public class ObjectSpawner : NetworkBehaviour
         }
     }
 
+    internal void ResetBallPosition()
+    {
+        if (IsServer)
+        {
+            GameObject go = Instantiate(spawnnablObject, Vector3.zero, Quaternion.identity);
+            NetworkObject no = go.GetComponent<NetworkObject>();
+            no.Spawn();
+        }
+    }
+
     //public override void OnNetworkSpawn()
     //{
     //    if (IsServer)
