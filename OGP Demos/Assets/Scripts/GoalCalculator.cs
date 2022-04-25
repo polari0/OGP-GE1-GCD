@@ -6,44 +6,71 @@ public class GoalCalculator : NetworkBehaviour
 {
     [SerializeField]
     GameObject ball;
+    [SerializeField]
+    GoalUI goalUI_script;
 
-    private NetworkVariable<int> LeftGoal = new NetworkVariable<int>(0);
-    private NetworkVariable<int> RightGoal = new NetworkVariable<int>(0);
+    [SerializeField]
+    private GameObject leftGoal_Goal;
+    [SerializeField]
+    private GameObject rightGoal_Goal;
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    public NetworkVariable<int> leftGoal = new NetworkVariable<int>(0);
+    public NetworkVariable<int> rightGoal = new NetworkVariable<int>(0);
+
+    //private void Awake()
+    //{
+    //    if (IsServer)
+    //    {
+    //        leftGoal_Goal = GameObject.FindGameObjectWithTag("LeftGoal");
+    //        rightGoal_Goal = GameObject.FindGameObjectWithTag("RightGoal");
+    //    }
+    //}
+
+    //private void Start()
+    //{
+    //    if (IsServer)
+    //    {
+    //        leftGoal_Goal.GetComponent<BoxCollider2D>();
+    //        rightGoal_Goal.GetComponent<BoxCollider2D>();
+    //    }
+    //}
+
+    //private void OnTriggerEnter2D(Collider2D collision)
+    //{
+    //    if (IsServer)
+    //    {
+    //        if (collision.tag == "Ball" && collision.)
+    //        {
+    //            GoalLeft();
+    //            Debug.Log(leftGoal);
+    //            ResetBallPosition();
+    //            DestroyGameObject();
+    //        }
+    //        else if (collision.tag == "Ball")
+    //        {
+    //            GoalRight();
+    //            Debug.Log(rightGoal);
+    //            ResetBallPosition();
+    //            DestroyGameObject();
+
+    //        }
+    //    }
+    //}
+    public void GoalLeft(int goal = 1)
     {
         if (IsServer)
         {
-            if (collision.tag == "LeftGoal")
-            {
-                GoalLeft();
-                Debug.Log(LeftGoal);
-                ResetBallPosition();
-                DestroyGameObject();
-            }
-            else if (collision.tag == "RightGoal")
-            {
-                GoalRight();
-                Debug.Log(RightGoal);
-                ResetBallPosition();
-                DestroyGameObject();
-
-            }
-        }
-    }
-    private void GoalLeft(int goal = 1)
-    {
-        if (!IsServer)
-        {
-            LeftGoal.Value += goal;
+            goalUI_script.UpdateGoals();
+            leftGoal.Value += goal;
         }
     }
 
-    private void GoalRight(int goal = 1)
+    public void GoalRight(int goal = 1)
     {
-        if (!IsServer)
+        if (IsServer)
         {
-            RightGoal.Value += goal;
+            goalUI_script.UpdateGoals();
+            rightGoal.Value += goal;
         }
     }
 

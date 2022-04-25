@@ -439,6 +439,18 @@ PrefabInstance:
       propertyPath: disconnectUI
       value: 
       objectReference: {fileID: 193522203}
+    - target: {fileID: 2779598677890620441, guid: def808e4005e0ae448d199e5be45e8a1, type: 3}
+      propertyPath: NetworkConfig.NetworkPrefabs.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2779598677890620441, guid: def808e4005e0ae448d199e5be45e8a1, type: 3}
+      propertyPath: NetworkConfig.NetworkPrefabs.Array.data[2].Prefab
+      value: 
+      objectReference: {fileID: 3356327952158386589, guid: 8969437f206435a4f9ee306a7a158709, type: 3}
+    - target: {fileID: 2779598677890620441, guid: def808e4005e0ae448d199e5be45e8a1, type: 3}
+      propertyPath: NetworkConfig.NetworkPrefabs.Array.data[3].Prefab
+      value: 
+      objectReference: {fileID: 2710827910570756951, guid: 4e9ba93bae270ba4fb5a00f9883daf59, type: 3}
     - target: {fileID: 3260149934710794781, guid: def808e4005e0ae448d199e5be45e8a1, type: 3}
       propertyPath: playerPrefab
       value: 
