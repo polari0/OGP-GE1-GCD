@@ -60,8 +60,9 @@ public class GoalCalculator : NetworkBehaviour
     {
         if (IsServer)
         {
-            goalUI_script.UpdateGoals();
             leftGoal.Value += goal;
+            goalUI_script.UpdateGoals();
+            goalUI_script.UpdateGoalsClientRPC();
         }
     }
 
@@ -69,8 +70,9 @@ public class GoalCalculator : NetworkBehaviour
     {
         if (IsServer)
         {
-            goalUI_script.UpdateGoals();
             rightGoal.Value += goal;
+            goalUI_script.UpdateGoals();
+            goalUI_script.UpdateGoalsClientRPC();
         }
     }
 

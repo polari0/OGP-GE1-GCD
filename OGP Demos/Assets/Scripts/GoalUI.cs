@@ -31,4 +31,14 @@ public class GoalUI : NetworkBehaviour
             leftScore.text = goalCalculator_Script.leftGoal.Value.ToString() + " Goals"; 
         }
     }
+
+    [ClientRpc]
+    public void UpdateGoalsClientRPC()
+    {
+        if (IsClient && !IsServer)
+        {
+            rightScore.text = goalCalculator_Script.rightGoal.Value.ToString() + " Goals";
+            leftScore.text = goalCalculator_Script.leftGoal.Value.ToString() + " Goals";
+        }
+    }
 }
